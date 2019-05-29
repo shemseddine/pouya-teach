@@ -1,0 +1,17 @@
+{
+  "name": "clientserver",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "csv": "^5.1.1",
+    "csv-parser": "^2.3.0",
+    "express": "^4.17.0"
+  }
+}
