@@ -12,7 +12,7 @@ app.get("/api/getList", (req, res) => {
   let point = req.query.point;
   // const data = [];
 
-  var sql = `SELECT Date, ${point} FROM sp500 WHERE Ticker = ?`;
+  var sql = `SELECT Date, ${point} FROM sp500 WHERE Ticker = spx`;
   db.all(sql, [ticker], (err, rows) => {
     res.send(rows);
   });
