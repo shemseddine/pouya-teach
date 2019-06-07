@@ -9,12 +9,22 @@ const app = express();
 app.use(express.static(path.join(__dirname, "client/build")));
 
 app.get("/api/getList", (req, res) => {
-  let point = req.query.point;
+  let { point, perPage, currentPage } = req.query;
+  let ticker = "spx";
+  let limit = perPage;
+  let offset = (currentPage - 1) * perPage;
   // const data = [];
 
-  var sql = `SELECT Date, ${point} FROM sp500 WHERE Ticker = 'spx'`;
-  db.all(sql, [ticker], (err, rows) => {
-    res.send(rows);
+  var sql = `SELECT Date, ${point} FROM sp500 WHERE Ticker = 'spx' LIMIT ${limit} OFFSET ${offset}`;
+  db.all(sql, (err, rows) => {
+    var totalCountSql =
+      "SELECT Count(*) as totalCount FROM sp500 WHERE Ticker = 'spx'";
+    db.get(totalCountSql, (err, { totalCount }) => {
+      res.send({
+        data: rows,
+        totalCount
+      });
+    });
   });
 
   // fs.createReadStream("./server/data/data.csv")
